@@ -47,9 +47,7 @@ class SetupService
                 $setups[$blogUid] = [
                     'uid' => $blogUid,
                     'title' => $title,
-                    'path' => implode(' / ', array_map(function ($page) {
-                        return $page['title'];
-                    }, $rootline)),
+                    'path' => implode(' / ', array_map(fn ($page) => $page['title'], $rootline)),
                     'rootline' => $rootline,
                     'articleCount' => $blogRootPage['cnt'],
                 ];
@@ -136,14 +134,14 @@ class SetupService
     {
         $newSetup = [];
         foreach ($setup as $key => &$value) {
-            if (strpos($key, 'NEW') !== false) {
+            if (str_contains($key, 'NEW')) {
                 foreach ($recordUidArray as $newId => $uid) {
                     $key = str_replace($newId, (string)$uid, $key);
                 }
             }
             if (\is_array($value)) {
                 $value = $this->replaceNewUids($value, $recordUidArray);
-            } elseif (strpos($value, 'NEW') !== false) {
+            } elseif (str_contains((string) $value, 'NEW')) {
                 foreach ($recordUidArray as $newId => $uid) {
                     $value = str_replace($newId, (string)$uid, $value);
                 }

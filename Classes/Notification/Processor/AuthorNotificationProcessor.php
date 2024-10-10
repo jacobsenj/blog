@@ -20,6 +20,7 @@ use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 
 class AuthorNotificationProcessor implements ProcessorInterface
 {
+    #[\Override]
     public function process(NotificationInterface $notification): void
     {
         $notificationId = $notification->getNotificationId();

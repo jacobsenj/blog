@@ -23,6 +23,7 @@ class GravatarViewHelper extends AbstractTagBasedViewHelper
         parent::__construct();
     }
 
+    #[\Override]
     public function initializeArguments(): void
     {
         parent::initializeArguments();
@@ -32,6 +33,7 @@ class GravatarViewHelper extends AbstractTagBasedViewHelper
         $this->registerArgument('size', 'int', 'The size of the gravatar, ranging from 1 to 512', false, 64);
     }
 
+    #[\Override]
     public function render(): string
     {
         $author = (new Author())->setEmail($this->arguments['email']);

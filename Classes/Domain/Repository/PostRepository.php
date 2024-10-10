@@ -132,14 +132,13 @@ class PostRepository extends Repository
             foreach ($result as $post) {
                 $sortedPosts[$post->getUid()] = $post;
             }
-            $result = array_values(array_filter($sortedPosts, function ($value) {
-                return $value instanceof Post;
-            }));
+            $result = array_values(array_filter($sortedPosts, fn ($value) => $value instanceof Post));
         }
 
         return $result;
     }
 
+    #[\Override]
     public function findAll(): QueryResultInterface
     {
         return $this->getFindAllQuery()->execute();
@@ -433,9 +432,7 @@ class PostRepository extends Repository
     protected function getPidsForConstraints(): array
     {
         // only add non empty pids (pid 0 will be removed as well
-        $pids = array_filter($this->getStoragePidsFromTypoScript(), function ($value) {
-            return $value !== '' && (int) $value !== 0;
-        });
+        $pids = array_filter($this->getStoragePidsFromTypoScript(), fn ($value) => $value !== '' && (int) $value !== 0);
 
         if (count($pids) === 0 && $this->getTypoScriptFrontendController() !== null) {
             $rootLine = GeneralUtility::makeInstance(RootlineUtility::class, $this->getTypoScriptFrontendController()->id)->get();

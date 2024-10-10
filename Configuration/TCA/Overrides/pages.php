@@ -135,11 +135,9 @@ $GLOBALS['TCA']['pages']['columns'] = array_replace_recursive(
         'archive_date' => [
             'label' => $ll . 'pages.archive_date',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'inputDateTime',
+                'type' => 'datetime',
                 'size' => '13',
-                'eval' => 'datetime',
-                'default' => '0',
+                'default' => 0,
                 'behaviour' => [
                     'allowLanguageSynchronization' => true
                 ]
@@ -148,11 +146,9 @@ $GLOBALS['TCA']['pages']['columns'] = array_replace_recursive(
         'publish_date' => [
             'label' => $ll . 'pages.publish_date',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'inputDateTime',
+                'type' => 'datetime',
                 'size' => '13',
-                'eval' => 'datetime',
-                'default' => '0',
+                'default' => 0,
                 'behaviour' => [
                     'allowLanguageSynchronization' => true
                 ]

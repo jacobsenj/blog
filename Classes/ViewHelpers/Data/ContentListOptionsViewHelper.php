@@ -21,6 +21,7 @@ class ContentListOptionsViewHelper extends AbstractViewHelper
 {
     use CompileWithContentArgumentAndRenderStatic;
 
+    #[\Override]
     public function initializeArguments(): void
     {
         $this->registerArgument('as', 'string', 'Name of variable to create.');
@@ -43,7 +44,7 @@ class ContentListOptionsViewHelper extends AbstractViewHelper
             ]
         );
 
-        $arguments['as'] = $arguments['as'] ?? 'contentObjectData';
+        $arguments['as'] ??= 'contentObjectData';
         $variableProvider = $renderingContext->getVariableProvider();
         $variableProvider->remove($arguments['as']);
         $variableProvider->add($arguments['as'], $data);

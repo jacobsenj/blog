@@ -12,6 +12,7 @@ namespace T3G\AgencyPack\Blog\Updates\Criteria;
 
 class IsNullCriteria extends AbstractCriteria implements CriteriaInterface
 {
+    #[\Override]
     public function __toString(): string
     {
         return $this->queryBuilder->expr()->isNull($this->getField());

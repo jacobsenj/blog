@@ -1,7 +1,7 @@
 name: blog
 type: typo3
 docroot: .build/public
-php_version: "8.2"
+php_version: "8.3"
 webserver_type: apache-fpm
 router_http_port: "80"
 router_https_port: "443"
@@ -10,7 +10,7 @@ additional_hostnames: []
 additional_fqdns: []
 database:
   type: mariadb
-  version: "10.2"
+  version: "10.11"
 nfs_mount_enabled: false
 mutagen_enabled: false
 use_dns_when_possible: true
@@ -22,7 +22,7 @@ web_environment:
   - typo3DatabaseName=t3func
   - typo3DatabasePassword=root
   - typo3DatabaseUsername=root
-nodejs_version: "16"
+nodejs_version: "20"
 
 # Key features of ddev's config.yaml:
 

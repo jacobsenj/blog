@@ -19,18 +19,8 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
 class CommentController extends ActionController
 {
-    protected PostRepository $postRepository;
-    protected CommentService $commentService;
-    protected CacheService $cacheService;
-
-    public function __construct(
-        PostRepository $postRepository,
-        CommentService $commentService,
-        CacheService $cacheService
-    ) {
-        $this->postRepository = $postRepository;
-        $this->commentService = $commentService;
-        $this->cacheService = $cacheService;
+    public function __construct(protected PostRepository $postRepository, protected CommentService $commentService, protected CacheService $cacheService)
+    {
     }
 
     /**

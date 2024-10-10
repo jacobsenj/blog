@@ -20,12 +20,14 @@ final class TagSlugUpdate extends AbstractUpdate implements UpgradeWizardInterfa
     protected string $title = 'EXT:blog: Generate Path-Segments for Tags';
     protected string $table = 'tx_blog_domain_model_tag';
 
+    #[\Override]
     public function updateNecessary(): bool
     {
         $records = $this->getAffectedRecords();
         return (bool) count($records);
     }
 
+    #[\Override]
     public function executeUpdate(): bool
     {
         $fieldConfig = $GLOBALS['TCA'][$this->table]['columns']['slug']['config'];

@@ -18,6 +18,7 @@ use TYPO3\CMS\Extbase\Service\ImageService;
 
 class ImageProvider implements AvatarProviderInterface
 {
+    #[\Override]
     public function getAvatarUrl(Author $author, int $size): string
     {
         $image = $author->getImage();

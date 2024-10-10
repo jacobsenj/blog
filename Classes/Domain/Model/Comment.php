@@ -57,7 +57,7 @@ class Comment extends AbstractEntity
     /**
      * The post related to this comment.
      *
-     * @var \T3G\AgencyPack\Blog\Domain\Model\Post
+     * @var Post
      */
     protected $post;
 

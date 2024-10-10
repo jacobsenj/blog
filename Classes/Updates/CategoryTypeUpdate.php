@@ -18,6 +18,7 @@ final class CategoryTypeUpdate extends AbstractUpdate implements UpgradeWizardIn
     protected string $title = 'EXT:blog: Use Blog-Type for Categories';
     protected string $table = 'sys_category';
 
+    #[\Override]
     public function updateNecessary(): bool
     {
         $records = $this->getAffectedRecords();
@@ -27,6 +28,7 @@ final class CategoryTypeUpdate extends AbstractUpdate implements UpgradeWizardIn
     /**
      * @return bool
      */
+    #[\Override]
     public function executeUpdate(): bool
     {
         $records = $this->getAffectedRecords();
@@ -42,9 +44,7 @@ final class CategoryTypeUpdate extends AbstractUpdate implements UpgradeWizardIn
     private function getAffectedRecords(): array
     {
         $pages = array_map(
-            function ($page) {
-                return $page['uid'];
-            },
+            fn ($page) => $page['uid'],
             $this->getBlogStorageFolders()
         );
 

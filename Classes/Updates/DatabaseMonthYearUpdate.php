@@ -18,12 +18,14 @@ final class DatabaseMonthYearUpdate extends AbstractUpdate implements UpgradeWiz
     protected string $title = 'EXT:blog: Set new month and year fields for existing blog posts';
     protected string $table = 'pages';
 
+    #[\Override]
     public function updateNecessary(): bool
     {
         $records = $this->getAffectedRecords();
         return (bool) count($records);
     }
 
+    #[\Override]
     public function executeUpdate(): bool
     {
         $records = $this->getAffectedRecords();

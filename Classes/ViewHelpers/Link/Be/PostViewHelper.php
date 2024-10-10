@@ -24,6 +24,7 @@ class PostViewHelper extends AbstractTagBasedViewHelper
      */
     protected $tagName = 'a';
 
+    #[\Override]
     public function initializeArguments(): void
     {
         parent::initializeArguments();
@@ -37,6 +38,7 @@ class PostViewHelper extends AbstractTagBasedViewHelper
         $this->registerArgument('action', 'string', 'action to link', false, null);
     }
 
+    #[\Override]
     public function render(): string
     {
         $request = $this->getRequest();
@@ -51,19 +53,15 @@ class PostViewHelper extends AbstractTagBasedViewHelper
         $post = $this->arguments['post'];
         $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
 
-        switch ($this->arguments['action']) {
-            case 'edit':
-                $uri = (string)$uriBuilder->buildUriFromRoute('record_edit', [
-                    'edit' => ['pages' => [$post->getUid() => 'edit']],
-                    'returnUrl' => $request->getAttribute('normalizedParams')->getRequestUri(),
-                ]);
-                break;
-            default:
-                $uri = (string)$uriBuilder->buildUriFromRoute('web_layout', [
-                    'id' => $post->getUid(),
-                ]);
-                break;
-        }
+        $uri = match ($this->arguments['action']) {
+            'edit' => (string)$uriBuilder->buildUriFromRoute('record_edit', [
+                'edit' => ['pages' => [$post->getUid() => 'edit']],
+                'returnUrl' => $request->getAttribute('normalizedParams')->getRequestUri(),
+            ]),
+            default => (string)$uriBuilder->buildUriFromRoute('web_layout', [
+                'id' => $post->getUid(),
+            ]),
+        };
 
         if (isset($this->arguments['returnUri']) && $this->arguments['returnUri'] === true) {
             return htmlspecialchars($uri, ENT_QUOTES | ENT_HTML5);

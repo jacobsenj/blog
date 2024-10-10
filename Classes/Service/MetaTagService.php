@@ -24,16 +24,11 @@ class MetaTagService
 
     public static function set(string $type, string $value): void
     {
-        switch ($type) {
-            case self::META_TITLE:
-                self::setTitle($value);
-                break;
-            case self::META_DESCRIPTION:
-                self::setDescription($value);
-                break;
-            default:
-                throw new \InvalidArgumentException('The type "' . $type . '" is not supported.', 1562020008);
-        }
+        match ($type) {
+            self::META_TITLE => self::setTitle($value),
+            self::META_DESCRIPTION => self::setDescription($value),
+            default => throw new \InvalidArgumentException('The type "' . $type . '" is not supported.', 1562020008),
+        };
     }
 
     protected static function setTitle(string $value): void

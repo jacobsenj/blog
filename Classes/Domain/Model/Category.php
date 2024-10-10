@@ -17,9 +17,7 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 class Category extends AbstractEntity
 {
-    /**
-     * @Extbase\Validate("NotEmpty")
-     */
+    #[Extbase\Validate(['validator' => 'NotEmpty'])]
     protected string $title = '';
     protected string $slug = '';
     protected string $description = '';
@@ -27,20 +25,20 @@ class Category extends AbstractEntity
 
     /**
      * @var \T3G\AgencyPack\Blog\Domain\Model\Category
-     * @Extbase\ORM\Lazy
      */
+    #[Extbase\ORM\Lazy]
     protected $parent;
 
     /**
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\T3G\AgencyPack\Blog\Domain\Model\Content>
-     * @Extbase\ORM\Lazy
+     * @var ObjectStorage<Content>
      */
+    #[Extbase\ORM\Lazy]
     protected $content;
 
     /**
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\T3G\AgencyPack\Blog\Domain\Model\Post>
-     * @Extbase\ORM\Lazy
+     * @var ObjectStorage<Post>
      */
+    #[Extbase\ORM\Lazy]
     protected $posts;
 
     public function __construct()
@@ -98,7 +96,7 @@ class Category extends AbstractEntity
     }
 
     /**
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\T3G\AgencyPack\Blog\Domain\Model\Content>
+     * @return ObjectStorage<Content>
      */
     public function getContent(): ObjectStorage
     {
@@ -106,7 +104,7 @@ class Category extends AbstractEntity
     }
 
     /**
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\T3G\AgencyPack\Blog\Domain\Model\Content> $content
+     * @param ObjectStorage<Content> $content
      */
     public function setContent(ObjectStorage $content): self
     {
@@ -115,7 +113,7 @@ class Category extends AbstractEntity
     }
 
     /**
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\T3G\AgencyPack\Blog\Domain\Model\Post>
+     * @return ObjectStorage<Post>
      */
     public function getPosts(): ObjectStorage
     {
@@ -123,7 +121,7 @@ class Category extends AbstractEntity
     }
 
     /**
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\T3G\AgencyPack\Blog\Domain\Model\Post> $posts
+     * @param ObjectStorage<Post> $posts
      */
     public function setPosts(ObjectStorage $posts): self
     {

@@ -16,47 +16,31 @@ use T3G\AgencyPack\Blog\Domain\Repository\CommentRepository;
 use T3G\AgencyPack\Blog\Domain\Repository\PostRepository;
 use T3G\AgencyPack\Blog\Service\CacheService;
 use T3G\AgencyPack\Blog\Service\SetupService;
+use TYPO3\CMS\Backend\Attribute\AsController;
 use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
 use TYPO3\CMS\Core\Http\RedirectResponse;
-use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Page\PageRenderer;
+use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
+#[AsController]
 class BackendController extends ActionController
 {
-    protected PostRepository $postRepository;
-    protected CommentRepository $commentRepository;
-    protected ModuleTemplateFactory $moduleTemplateFactory;
-    protected PageRenderer $pageRenderer;
-    protected SetupService $setupService;
-    protected CacheService $cacheService;
-
-    public function __construct(
-        PostRepository $postRepository,
-        CommentRepository $commentRepository,
-        ModuleTemplateFactory $moduleTemplateFactory,
-        PageRenderer $pageRenderer,
-        SetupService $setupService,
-        CacheService $cacheService
-    ) {
-        $this->postRepository = $postRepository;
-        $this->commentRepository = $commentRepository;
-        $this->moduleTemplateFactory = $moduleTemplateFactory;
-        $this->pageRenderer = $pageRenderer;
-        $this->setupService = $setupService;
-        $this->cacheService = $cacheService;
+    public function __construct(protected PostRepository $postRepository, protected CommentRepository $commentRepository, protected ModuleTemplateFactory $moduleTemplateFactory, protected PageRenderer $pageRenderer, protected SetupService $setupService, protected CacheService $cacheService)
+    {
     }
 
+    #[\Override]
     public function initializeAction(): void
     {
-        $this->pageRenderer->loadRequireJsModule('TYPO3/CMS/Backend/Tooltip');
+        //        $this->pageRenderer->loadRequireJsModule('TYPO3/CMS/Backend/Tooltip');
         $this->pageRenderer->addCssFile('EXT:blog/Resources/Public/Css/backend.min.css', 'stylesheet', 'all', '', false);
     }
 
     public function initializeSetupWizardAction(): void
     {
         $this->initializeDataTables();
-        $this->pageRenderer->loadRequireJsModule('TYPO3/CMS/Blog/SetupWizard');
+        //        $this->pageRenderer->loadRequireJsModule('TYPO3/CMS/Blog/SetupWizard');
     }
 
     public function initializePostsAction(): void
@@ -67,24 +51,22 @@ class BackendController extends ActionController
     public function initializeCommentsAction(): void
     {
         $this->initializeDataTables();
-        $this->pageRenderer->loadRequireJsModule('TYPO3/CMS/Blog/MassUpdate');
+        //        $this->pageRenderer->loadRequireJsModule('TYPO3/CMS/Blog/MassUpdate');
     }
 
     protected function initializeDataTables(): void
     {
-        $this->pageRenderer->loadRequireJsModule('TYPO3/CMS/Blog/Datatables');
+        //        $this->pageRenderer->loadRequireJsModule('TYPO3/CMS/Blog/Datatables');
         $this->pageRenderer->addCssFile('EXT:blog/Resources/Public/Css/Datatables.min.css', 'stylesheet', 'all', '', false);
     }
 
     public function setupWizardAction(): ResponseInterface
     {
-        $this->view->assignMultiple([
+        $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
+        $moduleTemplate->assignMultiple([
             'blogSetups' => $this->setupService->determineBlogSetups(),
         ]);
-        $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
-        $moduleTemplate->setContent($this->view->render());
-
-        return $this->htmlResponse($moduleTemplate->renderContent());
+        return $moduleTemplate->renderResponse('Backend/SetupWizard');
     }
 
     public function postsAction(int $blogSetup = null): ResponseInterface
@@ -94,20 +76,19 @@ class BackendController extends ActionController
         $querySettings->setIgnoreEnableFields(true);
         $this->postRepository->setDefaultQuerySettings($querySettings);
 
-        $this->view->assignMultiple([
+        $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
+        $moduleTemplate->assignMultiple([
             'blogSetups' => $this->setupService->determineBlogSetups(),
             'activeBlogSetup' => $blogSetup,
             'posts' => $this->postRepository->findAllByPid($blogSetup),
         ]);
-        $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
-        $moduleTemplate->setContent($this->view->render());
-
-        return $this->htmlResponse($moduleTemplate->renderContent());
+        return $moduleTemplate->renderResponse('Backend/Posts');
     }
 
     public function commentsAction(string $filter = null, int $blogSetup = null): ResponseInterface
     {
-        $this->view->assignMultiple([
+        $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
+        $moduleTemplate->assignMultiple([
             'activeFilter' => $filter,
             'activeBlogSetup' => $blogSetup,
             'commentCounts' => [
@@ -120,10 +101,8 @@ class BackendController extends ActionController
             'blogSetups' => $this->setupService->determineBlogSetups(),
             'comments' => $this->commentRepository->findAllByFilter($filter, $blogSetup),
         ]);
-        $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
-        $moduleTemplate->setContent($this->view->render());
 
-        return $this->htmlResponse($moduleTemplate->renderContent());
+        return $moduleTemplate->renderResponse('Backend/Posts');
     }
 
     public function updateCommentStatusAction(string $status, string $filter = null, int $blogSetup = null, array $comments = [], int $comment = null): ResponseInterface
@@ -164,7 +143,7 @@ class BackendController extends ActionController
         if ($data !== null && $this->setupService->createBlogSetup($data)) {
             $this->addFlashMessage('Your blog setup has been created.', 'Congratulation');
         } else {
-            $this->addFlashMessage('Sorry, your blog setup could not be created.', 'An error occurred', FlashMessage::ERROR);
+            $this->addFlashMessage('Sorry, your blog setup could not be created.', 'An error occurred', ContextualFeedbackSeverity::ERROR);
         }
 
         return new RedirectResponse($this->uriBuilder->reset()->uriFor('setupWizard'));

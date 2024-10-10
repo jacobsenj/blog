@@ -23,6 +23,7 @@ class PostViewHelper extends AbstractTagBasedViewHelper
         parent::__construct();
     }
 
+    #[\Override]
     public function initializeArguments(): void
     {
         parent::initializeArguments();
@@ -37,6 +38,7 @@ class PostViewHelper extends AbstractTagBasedViewHelper
         $this->registerArgument('returnUri', 'bool', 'return only uri', false, false);
     }
 
+    #[\Override]
     public function render(): string
     {
         /** @var Post $post */

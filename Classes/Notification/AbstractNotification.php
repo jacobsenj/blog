@@ -12,17 +12,11 @@ namespace T3G\AgencyPack\Blog\Notification;
 
 abstract class AbstractNotification implements NotificationInterface
 {
-    protected string $title;
-    protected string $message;
-    protected array $data;
-
-    public function __construct(string $title = '', string $message = '', array $data = [])
+    public function __construct(protected string $title = '', protected string $message = '', protected array $data = [])
     {
-        $this->title = $title;
-        $this->message = $message;
-        $this->data = $data;
     }
 
+    #[\Override]
     public function getTitle(): string
     {
         return $this->title;
@@ -34,6 +28,7 @@ abstract class AbstractNotification implements NotificationInterface
         return $this;
     }
 
+    #[\Override]
     public function getMessage(): string
     {
         return $this->message;
@@ -45,6 +40,7 @@ abstract class AbstractNotification implements NotificationInterface
         return $this;
     }
 
+    #[\Override]
     public function getData(): array
     {
         return $this->data;
@@ -56,6 +52,7 @@ abstract class AbstractNotification implements NotificationInterface
         return $this;
     }
 
+    #[\Override]
     public function getNotificationId(): string
     {
         return static::class;

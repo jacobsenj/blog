@@ -51,16 +51,19 @@ class StaticDatabaseMapper implements StaticMappableAspectInterface, \Countable
         $this->values = $this->buildValues();
     }
 
+    #[\Override]
     public function count(): int
     {
         return count($this->values);
     }
 
+    #[\Override]
     public function generate(string $value): ?string
     {
         return $this->respondWhenInValues($value);
     }
 
+    #[\Override]
     public function resolve(string $value): ?string
     {
         return $this->respondWhenInValues($value);

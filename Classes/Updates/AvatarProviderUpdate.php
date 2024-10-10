@@ -18,12 +18,14 @@ final class AvatarProviderUpdate extends AbstractUpdate implements UpgradeWizard
     protected string $title = 'EXT:blog: Migrate AvatarProvider';
     protected string $table = 'tx_blog_domain_model_author';
 
+    #[\Override]
     public function updateNecessary(): bool
     {
         $records = $this->getAffectedRecords();
         return (bool) count($records);
     }
 
+    #[\Override]
     public function executeUpdate(): bool
     {
         $records = $this->getAffectedRecords();

@@ -15,6 +15,7 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
 
 class AvatarViewHelper extends AbstractTagBasedViewHelper
 {
+    #[\Override]
     public function initializeArguments(): void
     {
         parent::initializeArguments();
@@ -22,6 +23,7 @@ class AvatarViewHelper extends AbstractTagBasedViewHelper
         $this->registerArgument('size', 'int', 'The size of the avatar, ranging from 1 to 512', false, 64);
     }
 
+    #[\Override]
     public function render(): string
     {
         /** @var Author $author */

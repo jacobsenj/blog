@@ -16,11 +16,8 @@ use TYPO3\CMS\Backend\Controller\Event\RenderAdditionalContentToRecordListEvent;
 
 class RenderAdditionalContentToRecordList
 {
-    protected BlogPostHeaderContentRenderer $blogPostHeaderContentRenderer;
-
-    public function __construct(BlogPostHeaderContentRenderer $blogPostHeaderContentRenderer)
+    public function __construct(protected BlogPostHeaderContentRenderer $blogPostHeaderContentRenderer)
     {
-        $this->blogPostHeaderContentRenderer = $blogPostHeaderContentRenderer;
     }
 
     /**

@@ -20,12 +20,14 @@ final class CategorySlugUpdate extends AbstractUpdate implements UpgradeWizardIn
     protected string $title = 'EXT:blog: Generate Path-Segments for Categories';
     protected string $table = 'sys_category';
 
+    #[\Override]
     public function updateNecessary(): bool
     {
         $records = $this->getAffectedRecords();
         return (bool) count($records);
     }
 
+    #[\Override]
     public function executeUpdate(): bool
     {
         $fieldConfig = $GLOBALS['TCA'][$this->table]['columns']['slug']['config'];

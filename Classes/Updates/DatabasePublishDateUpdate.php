@@ -18,12 +18,14 @@ final class DatabasePublishDateUpdate extends AbstractUpdate implements UpgradeW
     protected string $title = 'EXT:blog: Set publish date fields to crdate for existing blog posts';
     protected string $table = 'pages';
 
+    #[\Override]
     public function updateNecessary(): bool
     {
         $records = $this->getAffectedRecords();
         return (bool) count($records);
     }
 
+    #[\Override]
     public function executeUpdate(): bool
     {
         $records = $this->getAffectedRecords();

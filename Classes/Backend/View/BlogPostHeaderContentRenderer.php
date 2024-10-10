@@ -24,15 +24,8 @@ use TYPO3\CMS\Fluid\View\StandaloneView;
 
 class BlogPostHeaderContentRenderer implements SingletonInterface
 {
-    protected ExtensionConfiguration $extensionConfiguration;
-    protected PostRepository $postRepository;
-
-    public function __construct(
-        ExtensionConfiguration $extensionConfiguration,
-        PostRepository $postRepository
-    ) {
-        $this->extensionConfiguration = $extensionConfiguration;
-        $this->postRepository = $postRepository;
+    public function __construct(protected ExtensionConfiguration $extensionConfiguration, protected PostRepository $postRepository)
+    {
     }
 
     public function render(ServerRequestInterface $request): string

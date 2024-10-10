@@ -27,9 +27,9 @@ use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 
 class GravatarProvider implements AvatarProviderInterface, SingletonInterface
 {
-    private GravatarUriBuilderInterface $gravatarUriBuilder;
-    private AvatarResourceResolverInterface $avatarResourceResolver;
-    private bool $proxyGravatarImage;
+    private readonly GravatarUriBuilderInterface $gravatarUriBuilder;
+    private readonly AvatarResourceResolverInterface $avatarResourceResolver;
+    private readonly bool $proxyGravatarImage;
 
     final public function __construct()
     {
@@ -48,6 +48,7 @@ class GravatarProvider implements AvatarProviderInterface, SingletonInterface
         $this->proxyGravatarImage = (bool)($extensionConfiguration->get('blog', 'enableGravatarProxy') ?? false);
     }
 
+    #[\Override]
     public function getAvatarUrl(Author $author, int $size): string
     {
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManagerInterface::class);
@@ -69,7 +70,7 @@ class GravatarProvider implements AvatarProviderInterface, SingletonInterface
 
         try {
             $gravatar = $this->avatarResourceResolver->resolve($gravatarUri);
-        } catch (\Throwable $e) {
+        } catch (\Throwable) {
             // something went wrong, no need to deal with caching
             return '';
         }

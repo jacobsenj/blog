@@ -18,11 +18,9 @@ final class BlogPagination implements PaginationInterface
     protected int $maximumNumberOfLinks = 10;
     protected int $displayRangeStart = 0;
     protected int $displayRangeEnd = 0;
-    protected PaginatorInterface $paginator;
 
-    public function __construct(PaginatorInterface $paginator, int $maximumNumberOfLinks = 10)
+    public function __construct(protected PaginatorInterface $paginator, int $maximumNumberOfLinks = 10)
     {
-        $this->paginator = $paginator;
         $this->maximumNumberOfLinks = $maximumNumberOfLinks > 0 ? $maximumNumberOfLinks : 1;
         $this->displayRangeStart = $this->getFirstPageNumber();
         $this->displayRangeEnd = $this->getLastPageNumber();
@@ -49,6 +47,7 @@ final class BlogPagination implements PaginationInterface
         }
     }
 
+    #[\Override]
     public function getPreviousPageNumber(): ?int
     {
         $previousPage = $this->paginator->getCurrentPageNumber() - 1;
@@ -67,6 +66,7 @@ final class BlogPagination implements PaginationInterface
         return $this->paginator->getCurrentPageNumber();
     }
 
+    #[\Override]
     public function getNextPageNumber(): ?int
     {
         $nextPage = $this->paginator->getCurrentPageNumber() + 1;
@@ -76,16 +76,19 @@ final class BlogPagination implements PaginationInterface
             : null;
     }
 
+    #[\Override]
     public function getFirstPageNumber(): int
     {
         return 1;
     }
 
+    #[\Override]
     public function getLastPageNumber(): int
     {
         return $this->paginator->getNumberOfPages();
     }
 
+    #[\Override]
     public function getStartRecordNumber(): int
     {
         if ($this->paginator->getCurrentPageNumber() > $this->paginator->getNumberOfPages()) {
@@ -95,6 +98,7 @@ final class BlogPagination implements PaginationInterface
         return $this->paginator->getKeyOfFirstPaginatedItem() + 1;
     }
 
+    #[\Override]
     public function getEndRecordNumber(): int
     {
         if ($this->paginator->getCurrentPageNumber() > $this->paginator->getNumberOfPages()) {
@@ -112,6 +116,7 @@ final class BlogPagination implements PaginationInterface
     /**
      * @return int[]
      */
+    #[\Override]
     public function getAllPageNumbers(): array
     {
         return range($this->getFirstPageNumber(), $this->getLastPageNumber());

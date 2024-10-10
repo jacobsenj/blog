@@ -23,6 +23,7 @@ class CategoryViewHelper extends AbstractTagBasedViewHelper
      */
     protected $tagName = 'a';
 
+    #[\Override]
     public function initializeArguments(): void
     {
         parent::initializeArguments();
@@ -35,6 +36,7 @@ class CategoryViewHelper extends AbstractTagBasedViewHelper
         $this->registerArgument('returnUri', 'bool', 'return only uri', false, false);
     }
 
+    #[\Override]
     public function render(): string
     {
         $request = $this->getRequest();

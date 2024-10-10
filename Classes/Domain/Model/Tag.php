@@ -21,9 +21,9 @@ class Tag extends AbstractEntity
     protected string $description = '';
 
     /**
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\T3G\AgencyPack\Blog\Domain\Model\Content>
-     * @Extbase\ORM\Lazy
+     * @var ObjectStorage<Content>
      */
+    #[Extbase\ORM\Lazy]
     protected ObjectStorage $content;
 
     /**
@@ -67,7 +67,7 @@ class Tag extends AbstractEntity
     }
 
     /**
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\T3G\AgencyPack\Blog\Domain\Model\Content>
+     * @return ObjectStorage<Content>
      */
     public function getContent(): ObjectStorage
     {
@@ -75,7 +75,7 @@ class Tag extends AbstractEntity
     }
 
     /**
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\T3G\AgencyPack\Blog\Domain\Model\Content> $content
+     * @param ObjectStorage<Content> $content
      */
     public function setContent($content): self
     {

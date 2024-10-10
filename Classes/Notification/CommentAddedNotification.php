@@ -18,6 +18,7 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 class CommentAddedNotification extends AbstractNotification
 {
+    #[\Override]
     public function getTitle(): string
     {
         /** @var Post $post */
@@ -25,6 +26,7 @@ class CommentAddedNotification extends AbstractNotification
         return sprintf((string)LocalizationUtility::translate('emails.CommentAddedNotification.subject', 'blog'), $post->getTitle());
     }
 
+    #[\Override]
     public function getMessage(): string
     {
         /** @var Comment $comment */

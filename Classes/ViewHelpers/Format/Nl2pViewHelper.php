@@ -23,6 +23,7 @@ class Nl2pViewHelper extends AbstractViewHelper
      */
     protected $escapeOutput = false;
 
+    #[\Override]
     public function initializeArguments(): void
     {
         $this->registerArgument('value', 'string', 'string to format');
@@ -30,10 +31,8 @@ class Nl2pViewHelper extends AbstractViewHelper
 
     public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext): string
     {
-        $data = explode('<br>', nl2br($renderChildrenClosure(), false));
-        $data = array_filter($data, function ($value) {
-            return trim($value) !== '';
-        });
+        $data = explode('<br>', nl2br((string) $renderChildrenClosure(), false));
+        $data = array_filter($data, fn ($value) => trim((string) $value) !== '');
         return '<p>' . implode('</p><p>', $data) . '</p>';
     }
 }

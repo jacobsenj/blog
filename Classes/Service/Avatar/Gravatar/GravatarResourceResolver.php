@@ -18,33 +18,20 @@ use T3G\AgencyPack\Blog\DataTransferObject\AvatarResource;
 use T3G\AgencyPack\Blog\DataTransferObject\Gravatar;
 use T3G\AgencyPack\Blog\Service\Avatar\AvatarResourceResolverInterface;
 
-final class GravatarResourceResolver implements AvatarResourceResolverInterface
+final readonly class GravatarResourceResolver implements AvatarResourceResolverInterface
 {
-    private const HTTP_METHOD = 'GET';
-    private const HTTP_OK_STATUS_CODE = 200;
+    private const string HTTP_METHOD = 'GET';
+    private const int HTTP_OK_STATUS_CODE = 200;
 
-    /**
-     * @var ClientInterface
-     */
-    private $client;
-
-    /**
-     * @var RequestFactoryInterface
-     */
-    private $requestFactory;
-
-    public function __construct(
-        ClientInterface $client,
-        RequestFactoryInterface $requestFactory
-    ) {
-        $this->client = $client;
-        $this->requestFactory = $requestFactory;
+    public function __construct(private ClientInterface $client, private RequestFactoryInterface $requestFactory)
+    {
     }
 
     /**
      * @throws ClientExceptionInterface
      * @throws \RuntimeException
      */
+    #[\Override]
     public function resolve(UriInterface $uri): AvatarResource
     {
         $request = $this->requestFactory->createRequest(static::HTTP_METHOD, $uri);

@@ -35,27 +35,8 @@ use TYPO3Fluid\Fluid\View\ViewInterface;
 
 class PostController extends ActionController
 {
-    protected PostRepository $postRepository;
-    protected AuthorRepository $authorRepository;
-    protected CategoryRepository $categoryRepository;
-    protected TagRepository $tagRepository;
-    protected CacheService $blogCacheService;
-    protected PostRepositoryDemandFactory $postRepositoryDemandFactory;
-
-    public function __construct(
-        PostRepository $postRepository,
-        AuthorRepository $authorRepository,
-        CategoryRepository $categoryRepository,
-        TagRepository $tagRepository,
-        CacheService $blogCacheService,
-        PostRepositoryDemandFactory $postRepositoryDemandFactory
-    ) {
-        $this->postRepository = $postRepository;
-        $this->authorRepository = $authorRepository;
-        $this->categoryRepository = $categoryRepository;
-        $this->tagRepository = $tagRepository;
-        $this->blogCacheService = $blogCacheService;
-        $this->postRepositoryDemandFactory = $postRepositoryDemandFactory;
+    public function __construct(protected PostRepository $postRepository, protected AuthorRepository $authorRepository, protected CategoryRepository $categoryRepository, protected TagRepository $tagRepository, protected CacheService $blogCacheService, protected PostRepositoryDemandFactory $postRepositoryDemandFactory)
+    {
     }
 
     /**
@@ -101,7 +82,7 @@ class PostController extends ActionController
             $this->view->assign('feed', $feedData);
         }
 
-        $contentObject = $this->configurationManager->getContentObject();
+        $contentObject = $this->request->getAttribute('currentContentObject');
         $this->view->assign('data', $contentObject !== null ? $contentObject->data : null);
     }
 
@@ -185,7 +166,7 @@ class PostController extends ActionController
     public function listPostsByCategoryAction(?Category $category = null, int $currentPage = 1): ResponseInterface
     {
         if ($category === null) {
-            $contentObject = $this->configurationManager->getContentObject();
+            $contentObject = $this->request->getAttribute('currentContentObject');
             $referenceUid = $contentObject !== null ? (int) $contentObject->data['uid'] : null;
             if ($referenceUid !== null) {
                 $categories = $this->categoryRepository->getByReference('tt_content', $referenceUid);

@@ -36,7 +36,7 @@ abstract class AbstractUpdate
 
     public function getIdentifier(): string
     {
-        return get_class($this);
+        return static::class;
     }
 
     public function getTitle(): string

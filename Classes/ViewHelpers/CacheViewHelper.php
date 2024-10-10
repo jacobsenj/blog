@@ -18,6 +18,7 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 class CacheViewHelper extends AbstractViewHelper
 {
+    #[\Override]
     public function initializeArguments(): void
     {
         $this->registerArgument('post', Post::class, 'the post to tag', true);

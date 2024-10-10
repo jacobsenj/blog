@@ -14,11 +14,8 @@ use T3G\AgencyPack\Blog\Backend\View\BlogPostHeaderContentRenderer;
 
 class PageLayoutHeaderHook
 {
-    protected BlogPostHeaderContentRenderer $blogPostHeaderContentRenderer;
-
-    public function __construct(BlogPostHeaderContentRenderer $blogPostHeaderContentRenderer)
+    public function __construct(protected BlogPostHeaderContentRenderer $blogPostHeaderContentRenderer)
     {
-        $this->blogPostHeaderContentRenderer = $blogPostHeaderContentRenderer;
     }
 
     /**

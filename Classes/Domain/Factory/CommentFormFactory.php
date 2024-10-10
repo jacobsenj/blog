@@ -35,16 +35,17 @@ class CommentFormFactory extends AbstractFormFactory
      * This example build a FormDefinition manually,
      * so $configuration and $prototypeName are unused.
      */
-    public function build(array $configuration, string $prototypeName = null): FormDefinition
+    #[\Override]
+    public function build(array $configuration, string $prototypeName = null, ?\Psr\Http\Message\ServerRequestInterface $request = null): FormDefinition
     {
         $prototypeName = 'standard';
         $formConfigurationService = GeneralUtility::makeInstance(ConfigurationService::class);
         $prototypeConfiguration = $formConfigurationService->getPrototypeConfiguration($prototypeName);
-        $prototypeConfiguration['formElementsDefinition']['BlogGoogleCaptcha'] = $prototypeConfiguration['formElementsDefinition']['BlogGoogleCaptcha'] ?? [];
+        $prototypeConfiguration['formElementsDefinition']['BlogGoogleCaptcha'] ??= [];
         ArrayUtility::mergeRecursiveWithOverrule(
             $prototypeConfiguration['formElementsDefinition']['BlogGoogleCaptcha'],
             [
-                'implementationClassName' => 'TYPO3\CMS\Form\Domain\Model\FormElements\GenericFormElement'
+                'implementationClassName' => GenericFormElement::class
             ]
         );
 

@@ -17,34 +17,17 @@ use T3G\AgencyPack\Blog\Domain\Repository\PostRepository;
 use T3G\AgencyPack\Blog\Domain\Repository\TagRepository;
 use T3G\AgencyPack\Blog\Service\CacheService;
 use T3G\AgencyPack\Blog\Utility\ArchiveUtility;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
 class WidgetController extends ActionController
 {
-    protected CategoryRepository $categoryRepository;
-    protected TagRepository $tagRepository;
-    protected PostRepository $postRepository;
-    protected CommentRepository $commentRepository;
-    protected CacheService $cacheService;
-
-    public function __construct(
-        CategoryRepository $categoryRepository,
-        TagRepository $tagRepository,
-        PostRepository $postRepository,
-        CommentRepository $commentRepository,
-        CacheService $cacheService
-    ) {
-        $this->categoryRepository = $categoryRepository;
-        $this->tagRepository = $tagRepository;
-        $this->postRepository = $postRepository;
-        $this->commentRepository = $commentRepository;
-        $this->cacheService = $cacheService;
+    public function __construct(protected CategoryRepository $categoryRepository, protected TagRepository $tagRepository, protected PostRepository $postRepository, protected CommentRepository $commentRepository, protected CacheService $cacheService)
+    {
     }
 
     public function categoriesAction(): ResponseInterface
     {
-        $requestParameters = GeneralUtility::_GP('tx_blog_category');
+        $requestParameters = $this->request->getParsedBody()['tx_blog_category'] ?? $this->request->getQueryParams()['tx_blog_category'] ?? null;
         $currentCategory = 0;
         if (($requestParameters['category'] ?? null) !== null) {
             $currentCategory = (int)$requestParameters['category'];
@@ -60,7 +43,7 @@ class WidgetController extends ActionController
 
     public function tagsAction(): ResponseInterface
     {
-        $requestParameters = GeneralUtility::_GP('tx_blog_tag');
+        $requestParameters = $this->request->getParsedBody()['tx_blog_tag'] ?? $this->request->getQueryParams()['tx_blog_tag'] ?? null;
         $currentTag = 0;
         if (($requestParameters['tag'] ?? null) !== null) {
             $currentTag = (int)$requestParameters['tag'];

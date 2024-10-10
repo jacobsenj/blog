@@ -39,33 +39,33 @@ class Post extends AbstractEntity
     protected ?FileReference $featuredImage = null;
 
     /**
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\T3G\AgencyPack\Blog\Domain\Model\Category>
-     * @Extbase\ORM\Lazy
+     * @var ObjectStorage<Category>
      */
+    #[Extbase\ORM\Lazy]
     protected ObjectStorage $categories;
 
     /**
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\T3G\AgencyPack\Blog\Domain\Model\Comment>
-     * @Extbase\ORM\Lazy
+     * @var ObjectStorage<Comment>
      */
+    #[Extbase\ORM\Lazy]
     protected ObjectStorage $comments;
 
     /**
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\T3G\AgencyPack\Blog\Domain\Model\Tag>
-     * @Extbase\ORM\Lazy
+     * @var ObjectStorage<Tag>
      */
+    #[Extbase\ORM\Lazy]
     protected ObjectStorage $tags;
 
     /**
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
-     * @Extbase\ORM\Lazy
+     * @var ObjectStorage<FileReference>
      */
+    #[Extbase\ORM\Lazy]
     protected ObjectStorage $media;
 
     /**
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\T3G\AgencyPack\Blog\Domain\Model\Author>
-     * @Extbase\ORM\Lazy
+     * @var ObjectStorage<Author>
      */
+    #[Extbase\ORM\Lazy]
     protected $authors;
 
     public function __construct()
@@ -113,7 +113,7 @@ class Post extends AbstractEntity
     }
 
     /**
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\T3G\AgencyPack\Blog\Domain\Model\Author>
+     * @return ObjectStorage<Author>
      */
     public function getAuthors(): ObjectStorage
     {
@@ -121,7 +121,7 @@ class Post extends AbstractEntity
     }
 
     /**
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\T3G\AgencyPack\Blog\Domain\Model\Author> $authors
+     * @param ObjectStorage<Author> $authors
      * @return Post
      */
     public function setAuthors(ObjectStorage $authors): self
@@ -175,7 +175,7 @@ class Post extends AbstractEntity
     }
 
     /**
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\T3G\AgencyPack\Blog\Domain\Model\Category>
+     * @return ObjectStorage<Category>
      */
     public function getCategories(): ObjectStorage
     {
@@ -183,7 +183,7 @@ class Post extends AbstractEntity
     }
 
     /**
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\T3G\AgencyPack\Blog\Domain\Model\Category> $categories
+     * @param ObjectStorage<Category> $categories
      */
     public function setCategories($categories): self
     {
@@ -232,7 +232,7 @@ class Post extends AbstractEntity
     }
 
     /**
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\T3G\AgencyPack\Blog\Domain\Model\Comment>
+     * @return ObjectStorage<Comment>
      */
     public function getComments(): ObjectStorage
     {
@@ -246,7 +246,7 @@ class Post extends AbstractEntity
     }
 
     /**
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\T3G\AgencyPack\Blog\Domain\Model\Comment> $comments
+     * @param ObjectStorage<Comment> $comments
      */
     public function setComments(ObjectStorage $comments): self
     {
@@ -273,7 +273,7 @@ class Post extends AbstractEntity
     }
 
     /**
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\T3G\AgencyPack\Blog\Domain\Model\Tag>
+     * @return ObjectStorage<Tag>
      */
     public function getTags(): ObjectStorage
     {
@@ -281,7 +281,7 @@ class Post extends AbstractEntity
     }
 
     /**
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\T3G\AgencyPack\Blog\Domain\Model\Tag> $tags
+     * @param ObjectStorage<Tag> $tags
      */
     public function setTags(ObjectStorage $tags): self
     {
@@ -308,7 +308,7 @@ class Post extends AbstractEntity
     }
 
     /**
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
+     * @return ObjectStorage<FileReference>
      */
     public function getMedia(): ObjectStorage
     {
@@ -316,7 +316,7 @@ class Post extends AbstractEntity
     }
 
     /**
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $media
+     * @param ObjectStorage<FileReference> $media
      */
     public function setMedia(ObjectStorage $media): self
     {

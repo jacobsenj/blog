@@ -24,6 +24,7 @@ class AuthorViewHelper extends AbstractTagBasedViewHelper
         parent::__construct();
     }
 
+    #[\Override]
     public function initializeArguments(): void
     {
         parent::initializeArguments();
@@ -35,6 +36,7 @@ class AuthorViewHelper extends AbstractTagBasedViewHelper
         $this->registerArgument('rss', 'bool', 'Link to rss version', false, false);
     }
 
+    #[\Override]
     public function render(): string
     {
         /** @var Author $author */

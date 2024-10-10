@@ -18,15 +18,8 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class PostRepositoryDemandFactory
 {
-    private CategoryRepository $categoryRepository;
-    private TagRepository $tagRepository;
-
-    public function __construct(
-        CategoryRepository $categoryRepository,
-        TagRepository $tagRepository
-    ) {
-        $this->categoryRepository = $categoryRepository;
-        $this->tagRepository = $tagRepository;
+    public function __construct(private readonly CategoryRepository $categoryRepository, private readonly TagRepository $tagRepository)
+    {
     }
 
     public function createFromSettings(array $settings): PostRepositoryDemand

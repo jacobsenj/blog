@@ -19,6 +19,7 @@ class GoogleCaptchaValidator extends AbstractValidator
 {
     protected $acceptsEmptyValues = false;
 
+    #[\Override]
     public function isValid($value): void
     {
         $action = 'form';
@@ -41,7 +42,7 @@ class GoogleCaptchaValidator extends AbstractValidator
                 'headers' => ['Content-type' => 'application/x-www-form-urlencoded'],
                 'query' => [
                     'secret' => $settings['comments']['google_recaptcha']['secret_key'],
-                    'response' => GeneralUtility::_GP('g-recaptcha-response'),
+                    'response' => $GLOBALS['TYPO3_REQUEST']->getParsedBody()['g-recaptcha-response'] ?? $GLOBALS['TYPO3_REQUEST']->getQueryParams()['g-recaptcha-response'] ?? null,
                     'remoteip' => GeneralUtility::getIndpEnv('REMOTE_ADDR')
                 ]
             ];

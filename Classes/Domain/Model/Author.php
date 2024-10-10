@@ -37,9 +37,9 @@ class Author extends AbstractEntity
     protected int $detailsPage = 0;
 
     /**
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\T3G\AgencyPack\Blog\Domain\Model\Post>
-     * @Extbase\ORM\Lazy
+     * @var ObjectStorage<Post>
      */
+    #[Extbase\ORM\Lazy]
     protected ObjectStorage $posts;
 
     public function __construct()
@@ -239,7 +239,7 @@ class Author extends AbstractEntity
     }
 
     /**
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\T3G\AgencyPack\Blog\Domain\Model\Post>
+     * @return ObjectStorage<Post>
      */
     public function getPosts(): ObjectStorage
     {
@@ -247,7 +247,7 @@ class Author extends AbstractEntity
     }
 
     /**
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\T3G\AgencyPack\Blog\Domain\Model\Post> $posts
+     * @param ObjectStorage<Post> $posts
      */
     public function setPosts(ObjectStorage $posts): self
     {

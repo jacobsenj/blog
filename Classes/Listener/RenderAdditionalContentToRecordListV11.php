@@ -12,15 +12,12 @@ declare(strict_types = 1);
 namespace T3G\AgencyPack\Blog\Listener;
 
 use T3G\AgencyPack\Blog\Backend\View\BlogPostHeaderContentRenderer;
-use TYPO3\CMS\Recordlist\Event\RenderAdditionalContentToRecordListEvent;
+use TYPO3\CMS\Backend\Controller\Event\RenderAdditionalContentToRecordListEvent;
 
 class RenderAdditionalContentToRecordListV11
 {
-    protected BlogPostHeaderContentRenderer $blogPostHeaderContentRenderer;
-
-    public function __construct(BlogPostHeaderContentRenderer $blogPostHeaderContentRenderer)
+    public function __construct(protected BlogPostHeaderContentRenderer $blogPostHeaderContentRenderer)
     {
-        $this->blogPostHeaderContentRenderer = $blogPostHeaderContentRenderer;
     }
 
     /**

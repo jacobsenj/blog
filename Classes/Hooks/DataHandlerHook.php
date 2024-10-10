@@ -21,11 +21,11 @@ use TYPO3\CMS\Core\Utility\MathUtility;
  */
 class DataHandlerHook
 {
-    private const TABLE_PAGES = 'pages';
-    private const TABLE_CATEGORIES = 'sys_category';
-    private const TABLE_AUTHORS = 'tx_blog_domain_model_author';
-    private const TABLE_COMMENTS = 'tx_blog_domain_model_comment';
-    private const TABLE_TAGS = 'tx_blog_domain_model_tag';
+    private const string TABLE_PAGES = 'pages';
+    private const string TABLE_CATEGORIES = 'sys_category';
+    private const string TABLE_AUTHORS = 'tx_blog_domain_model_author';
+    private const string TABLE_COMMENTS = 'tx_blog_domain_model_comment';
+    private const string TABLE_TAGS = 'tx_blog_domain_model_tag';
 
     /**
      * @param string|int $id

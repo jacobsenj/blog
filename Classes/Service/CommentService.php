@@ -28,18 +28,8 @@ class CommentService
     public const STATE_MODERATION = 'moderation';
     public const STATE_SUCCESS = 'success';
 
-    protected PostRepository $postRepository;
-    protected CommentRepository $commentRepository;
-    protected PersistenceManagerInterface $persistenceManager;
-
-    public function __construct(
-        PostRepository $postRepository,
-        CommentRepository $commentRepository,
-        PersistenceManagerInterface $persistenceManager
-    ) {
-        $this->postRepository = $postRepository;
-        $this->commentRepository = $commentRepository;
-        $this->persistenceManager = $persistenceManager;
+    public function __construct(protected PostRepository $postRepository, protected CommentRepository $commentRepository, protected PersistenceManagerInterface $persistenceManager)
+    {
     }
 
     protected array $settings = [

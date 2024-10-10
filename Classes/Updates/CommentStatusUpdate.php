@@ -17,12 +17,14 @@ final class CommentStatusUpdate extends AbstractUpdate implements UpgradeWizardI
     protected string $title = 'EXT:blog: Migrate Comment Status';
     protected string $table = 'tx_blog_domain_model_comment';
 
+    #[\Override]
     public function updateNecessary(): bool
     {
         $records = $this->getAffectedRecords();
         return (bool) count($records);
     }
 
+    #[\Override]
     public function executeUpdate(): bool
     {
         $records = $this->getAffectedRecords();

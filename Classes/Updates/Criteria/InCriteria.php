@@ -27,6 +27,7 @@ class InCriteria extends AbstractCriteria implements CriteriaInterface
         return $this->values;
     }
 
+    #[\Override]
     public function __toString(): string
     {
         return $this->queryBuilder->expr()->in(

@@ -50,6 +50,7 @@ class CommentFormFinisher extends AbstractFinisher
         ],
     ];
 
+    #[\Override]
     protected function executeInternal()
     {
         $settings = GeneralUtility::makeInstance(ConfigurationManagerInterface::class)

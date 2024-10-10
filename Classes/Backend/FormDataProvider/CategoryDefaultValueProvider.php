@@ -15,6 +15,7 @@ use TYPO3\CMS\Backend\Form\FormDataProviderInterface;
 
 class CategoryDefaultValueProvider implements FormDataProviderInterface
 {
+    #[\Override]
     public function addData(array $result): array
     {
         if ($result['command'] !== 'new' ||

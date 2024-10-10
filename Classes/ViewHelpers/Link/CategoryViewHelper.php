@@ -24,6 +24,7 @@ class CategoryViewHelper extends AbstractTagBasedViewHelper
         parent::__construct();
     }
 
+    #[\Override]
     public function initializeArguments(): void
     {
         parent::initializeArguments();
@@ -35,6 +36,7 @@ class CategoryViewHelper extends AbstractTagBasedViewHelper
         $this->registerArgument('rss', 'bool', 'Link to rss version', false, false);
     }
 
+    #[\Override]
     public function render(): string
     {
         $rssFormat = (bool)$this->arguments['rss'];

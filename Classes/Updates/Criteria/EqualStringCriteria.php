@@ -27,6 +27,7 @@ class EqualStringCriteria extends AbstractCriteria implements CriteriaInterface
         return $this->value;
     }
 
+    #[\Override]
     public function __toString(): string
     {
         return $this->queryBuilder->expr()->eq(

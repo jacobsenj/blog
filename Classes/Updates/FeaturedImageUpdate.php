@@ -17,12 +17,14 @@ final class FeaturedImageUpdate extends AbstractUpdate implements UpgradeWizardI
 {
     protected string $title = 'EXT:blog: Featured Image Update';
 
+    #[\Override]
     public function updateNecessary(): bool
     {
         $records = $this->getAffectedRecords();
         return (bool) count($records);
     }
 
+    #[\Override]
     public function executeUpdate(): bool
     {
         $records = $this->getAffectedRecords();
@@ -55,9 +57,7 @@ final class FeaturedImageUpdate extends AbstractUpdate implements UpgradeWizardI
     private function getAffectedRecords(): array
     {
         $pages = array_map(
-            function ($page) {
-                return $page['uid'];
-            },
+            fn ($page) => $page['uid'],
             $this->getAffectedPages()
         );
 
